@@ -102,7 +102,16 @@ const createUserName = function (accounts) {
   });
 };
 createUserName(accounts);
+
+const calcPrintBalance = function (accounts) {
+  accounts.forEach((account) => {
+    account.balance = account.movements.reduce((acc, value) => acc + value, 0);
+  });
+};
+
+calcPrintBalance(accounts);
 console.log(accounts);
+labelBalance.textContent = `${account1.balance}€`;
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -288,6 +297,15 @@ console.log(accounts);
 
 // console.log(deposite, withdrawals);
 
+//reduce
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-//reduce
+const balance = movements.reduce((acc, ele) => acc + ele, 0);
+console.log(balance);
+
+let sum = 0;
+for (const [i, value] of movements.entries()) {
+  sum += value;
+  console.log(`${i} : ${sum}`);
+  console.log(sum);
+}
