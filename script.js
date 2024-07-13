@@ -251,11 +251,11 @@ console.log(accounts);
 // const juliaData2 = [9, 16, 6, 8, 3];
 // const kateData2 = [10, 5, 6, 1, 4];
 
-// checkDogs(juliaData, kateData);
 // checkDogs(juliaData2, kateData2);
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// checkDogs(juliaData, kateData);
 
-const eurToUSD = 1.1;
+// map
+// const eurToUSD = 1.1;
 
 // const Eur = movements.map((element) => {
 //   return Math.round(element * eurToUSD);
@@ -275,3 +275,19 @@ const eurToUSD = 1.1;
 // );
 
 // console.log(movementsDescriptions);
+
+// filter
+
+// const deposite = movements.filter((ele) => {
+//   return ele > 0;
+// });
+
+// const withdrawals = movements.filter((ele) => {
+//   return ele < 0;
+// });
+
+// console.log(deposite, withdrawals);
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//reduce
