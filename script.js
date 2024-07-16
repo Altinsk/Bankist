@@ -363,47 +363,66 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // console.log(filteredVal);
 
-const ages1 = [5, 2, 4, 1, 15, 8, 3];
-const ages2 = [16, 6, 10, 5, 6, 1, 4];
+// const ages1 = [5, 2, 4, 1, 15, 8, 3];
+// const ages2 = [16, 6, 10, 5, 6, 1, 4];
 
-const calcAverageHumanAge2 = (ages) => {
-  return ages
-    .map(function (elem) {
-      if (elem <= 2) {
-        return 2 * elem;
-      } else {
-        return 16 + elem * 4;
-      }
-    })
-    .filter(function (elem) {
-      return elem > 18;
-    })
-    .reduce(function (acc, elem, i, arr) {
-      return acc + elem / arr.length;
-    }, 0);
-};
+// const calcAverageHumanAge2 = (ages) => {
+//   return ages
+//     .map(function (elem) {
+//       if (elem <= 2) {
+//         return 2 * elem;
+//       } else {
+//         return 16 + elem * 4;
+//       }
+//     })
+//     .filter(function (elem) {
+//       return elem > 18;
+//     })
+//     .reduce(function (acc, elem, i, arr) {
+//       return acc + elem / arr.length;
+//     }, 0);
+// };
 
-const calcAverageHumanAge = function (ages) {
-  const humanAge = ages.map((ele) => {
-    if (ele <= 2) {
-      return 2 * ele;
-    } else {
-      return 16 + ele * 4;
-    }
-  });
+// const calcAverageHumanAge = function (ages) {
+//   const humanAge = ages.map((ele) => {
+//     if (ele <= 2) {
+//       return 2 * ele;
+//     } else {
+//       return 16 + ele * 4;
+//     }
+//   });
 
-  const filteredHumanAge = humanAge.filter((ele) => ele > 18);
+//   const filteredHumanAge = humanAge.filter((ele) => ele > 18);
 
-  const avgHumanAge =
-    filteredHumanAge.reduce((acc, ele) => acc + ele, 0) /
-    filteredHumanAge.length;
+//   const avgHumanAge =
+//     filteredHumanAge.reduce((acc, ele) => acc + ele, 0) /
+//     filteredHumanAge.length;
 
-  return avgHumanAge;
-};
+//   return avgHumanAge;
+// };
 
-const avg1 = calcAverageHumanAge(ages1);
-const avg2 = calcAverageHumanAge(ages2);
-const avg3 = calcAverageHumanAge2(ages1);
-const avg4 = calcAverageHumanAge2(ages2);
+// const avg1 = calcAverageHumanAge(ages1);
+// const avg2 = calcAverageHumanAge(ages2);
+// const avg3 = calcAverageHumanAge2(ages1);
+// const avg4 = calcAverageHumanAge2(ages2);
 
-console.log(avg1, avg2, avg3, avg4);
+// console.log(avg1, avg2, avg3, avg4);
+
+// console.log(movements);
+
+// console.log(movements.filter((elem) => elem < 0));
+
+// console.log(movements.find((elem) => elem < 0));
+
+console.log(accounts);
+
+const account = accounts.find((account) => account.owner === "Jessica Davis");
+
+console.log(account);
+
+for (const { owner, pin } of accounts) {
+  if (owner === "Jessica Davis") console.log(pin);
+  if (owner === "Jonas Schmedtmann") console.log(pin);
+  if (owner === "Steven Thomas Williams") console.log(pin);
+  if (owner === "Sarah Smith") console.log(pin);
+}
