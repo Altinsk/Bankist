@@ -113,6 +113,28 @@ calcPrintBalance(accounts);
 console.log(accounts);
 labelBalance.textContent = `${account1.balance}€`;
 
+const calcDisplaySummay = function (movement) {
+  const income = movement
+    .filter((elem) => elem > 0)
+    .reduce((acc, elem) => acc + elem);
+  labelSumIn.textContent = `${income}`;
+
+  const expenses = movement
+    .filter((elem) => elem < 0)
+    .reduce((acc, elem) => acc + elem);
+  labelSumOut.textContent = `${expenses}`;
+
+  const interestMovmenet = 0.012;
+  const interest = movement
+    .filter((elem) => elem > 0)
+    .map((elem) => elem * interestMovmenet)
+    .filter((elem) => elem >= 1)
+    .reduce((acc, elem) => acc + elem);
+  labelSumInterest.textContent = `${interest}`;
+};
+
+calcDisplaySummay(account1.movements);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -300,12 +322,88 @@ labelBalance.textContent = `${account1.balance}€`;
 //reduce
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const balance = movements.reduce((acc, ele) => acc + ele, 0);
-console.log(balance);
+// const balance = movements.reduce((acc, ele) => acc + ele, 0);
+// console.log(balance);
 
-let sum = 0;
-for (const [i, value] of movements.entries()) {
-  sum += value;
-  console.log(`${i} : ${sum}`);
-  console.log(sum);
-}
+// let sum = 0;
+// for (const [i, value] of movements.entries()) {
+//   sum += value;
+//   console.log(`${i} : ${sum}`);
+//   console.log(sum);
+// }
+
+// const maxVal = Math.max(...movements);
+// console.log(maxVal);
+
+// let max = movements[0];
+// for (const i of movements) {
+//   if (i > max) {
+//     max = i;
+//   }
+// }
+// console.log(max);
+
+// let myMax = movements[0];
+// movements.forEach((ele) => {
+//   if (ele > myMax) {
+//     myMax = ele;
+//   }
+// });
+// console.log(myMax);
+
+// const maximumVal = movements.reduce((acc, ele) => {
+//   return (acc = acc > ele ? acc : ele);
+// }, movements[0]);
+// console.log(maximumVal);
+
+// const maximumNum = -Infinity;
+// const filteredVal = movements.filter((ele) => {
+//   return maximumNum > ele ? max : ele;
+// });
+
+// console.log(filteredVal);
+
+const ages1 = [5, 2, 4, 1, 15, 8, 3];
+const ages2 = [16, 6, 10, 5, 6, 1, 4];
+
+const calcAverageHumanAge2 = (ages) => {
+  return ages
+    .map(function (elem) {
+      if (elem <= 2) {
+        return 2 * elem;
+      } else {
+        return 16 + elem * 4;
+      }
+    })
+    .filter(function (elem) {
+      return elem > 18;
+    })
+    .reduce(function (acc, elem, i, arr) {
+      return acc + elem / arr.length;
+    }, 0);
+};
+
+const calcAverageHumanAge = function (ages) {
+  const humanAge = ages.map((ele) => {
+    if (ele <= 2) {
+      return 2 * ele;
+    } else {
+      return 16 + ele * 4;
+    }
+  });
+
+  const filteredHumanAge = humanAge.filter((ele) => ele > 18);
+
+  const avgHumanAge =
+    filteredHumanAge.reduce((acc, ele) => acc + ele, 0) /
+    filteredHumanAge.length;
+
+  return avgHumanAge;
+};
+
+const avg1 = calcAverageHumanAge(ages1);
+const avg2 = calcAverageHumanAge(ages2);
+const avg3 = calcAverageHumanAge2(ages1);
+const avg4 = calcAverageHumanAge2(ages2);
+
+console.log(avg1, avg2, avg3, avg4);
