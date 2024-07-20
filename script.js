@@ -101,11 +101,11 @@ const createUserName = function (accounts) {
 };
 createUserName(accounts);
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, elem) => {
+const calcDisplayBalance = function (account) {
+  account.balance = account.movements.reduce((acc, elem) => {
     return acc + elem;
   }, 0);
-  labelBalance.textContent = `${balance}€`;
+  labelBalance.textContent = `${account.balance}€`;
 };
 
 const calcDisplaySummay = function (account) {
@@ -130,6 +130,8 @@ const calcDisplaySummay = function (account) {
 // Login
 
 let currentAccount;
+let transferedToAccount;
+
 btnLogin.addEventListener("click", function (e) {
   e.preventDefault();
   currentAccount = accounts.find(
@@ -145,13 +147,49 @@ btnLogin.addEventListener("click", function (e) {
     // movements
     displayMovement(currentAccount.movements);
     // balance
-    calcDisplayBalance(currentAccount.movements);
+    calcDisplayBalance(currentAccount);
     // summary
     calcDisplaySummay(currentAccount);
   } else {
     labelWelcome.textContent = `Wronge user or password please check`;
     containerApp.style.opacity = 0;
   }
+});
+
+const updateUI = function (acc) {
+  // movements
+  displayMovement(acc.movements);
+  // balance
+  calcDisplayBalance(acc);
+  // summary
+  calcDisplaySummay(acc);
+};
+
+// Transfer money
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAccount = inputTransferTo.value;
+
+  // add to the receiver account
+  transferedToAccount = accounts.find(
+    (elem) => elem.userName === receiverAccount
+  );
+
+  // add to expenses sender list
+  if (
+    amount > 0 &&
+    transferedToAccount &&
+    currentAccount.balance >= amount &&
+    transferedToAccount?.userName !== currentAccount.userName
+  ) {
+    currentAccount.movements.push(-inputTransferAmount.value);
+    // add to income receiver
+    transferedToAccount.movements.push(amount);
+
+    updateUI(currentAccount);
+  }
+  inputTransferAmount.value = inputTransferTo.value = "";
 });
 
 /////////////////////////////////////////////////
