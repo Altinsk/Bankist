@@ -78,8 +78,6 @@ const displayMovement = function (movements) {
   });
 };
 
-displayMovement(account1.movements);
-
 // const userName = function (str) {
 //   const result = str.split(" ");
 //   console.log(result);
@@ -103,37 +101,58 @@ const createUserName = function (accounts) {
 };
 createUserName(accounts);
 
-const calcPrintBalance = function (accounts) {
-  accounts.forEach((account) => {
-    account.balance = account.movements.reduce((acc, value) => acc + value, 0);
-  });
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, elem) => {
+    return acc + elem;
+  }, 0);
+  labelBalance.textContent = `${balance}€`;
 };
 
-calcPrintBalance(accounts);
-console.log(accounts);
-labelBalance.textContent = `${account1.balance}€`;
-
-const calcDisplaySummay = function (movement) {
-  const income = movement
+const calcDisplaySummay = function (account) {
+  const income = account.movements
     .filter((elem) => elem > 0)
     .reduce((acc, elem) => acc + elem);
-  labelSumIn.textContent = `${income}`;
+  labelSumIn.textContent = `${income}€`;
 
-  const expenses = movement
+  const expenses = account.movements
     .filter((elem) => elem < 0)
     .reduce((acc, elem) => acc + elem);
-  labelSumOut.textContent = `${expenses}`;
+  labelSumOut.textContent = `${expenses}€`;
 
-  const interestMovmenet = 0.012;
-  const interest = movement
+  const interest = account.movements
     .filter((elem) => elem > 0)
-    .map((elem) => elem * interestMovmenet)
+    .map((elem) => elem * currentAccount.interestRate)
     .filter((elem) => elem >= 1)
     .reduce((acc, elem) => acc + elem);
-  labelSumInterest.textContent = `${interest}`;
+  labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummay(account1.movements);
+// Login
+
+let currentAccount;
+btnLogin.addEventListener("click", function (e) {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    (elem) => elem.userName === inputLoginUsername.value
+  );
+  // display UI and welcome
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    labelWelcome.textContent = `Hi, ${currentAccount.owner.split(" ")[0]}`;
+    containerApp.style.opacity = 100;
+    inputLoginUsername.value = "";
+    inputLoginPin.value = "";
+    inputLoginPin.blur();
+    // movements
+    displayMovement(currentAccount.movements);
+    // balance
+    calcDisplayBalance(currentAccount.movements);
+    // summary
+    calcDisplaySummay(currentAccount);
+  } else {
+    labelWelcome.textContent = `Wronge user or password please check`;
+    containerApp.style.opacity = 0;
+  }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
