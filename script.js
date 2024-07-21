@@ -192,6 +192,23 @@ btnTransfer.addEventListener("click", function (e) {
   inputTransferAmount.value = inputTransferTo.value = "";
 });
 
+// close an account
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+  const closingAccount = accounts.findIndex(
+    (elem) => elem.userName === currentAccount.userName
+  );
+
+  if (
+    currentAccount?.userName === inputCloseUsername.value &&
+    currentAccount?.pin === Number(inputClosePin.value)
+  ) {
+    accounts.splice(closingAccount, 1);
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = "";
+});
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -471,15 +488,15 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 // console.log(movements.find((elem) => elem < 0));
 
-console.log(accounts);
+// console.log(accounts);
 
-const account = accounts.find((account) => account.owner === "Jessica Davis");
+// const account = accounts.find((account) => account.owner === "Jessica Davis");
 
-console.log(account);
+// console.log(account);
 
-for (const { owner, pin } of accounts) {
-  if (owner === "Jessica Davis") console.log(pin);
-  if (owner === "Jonas Schmedtmann") console.log(pin);
-  if (owner === "Steven Thomas Williams") console.log(pin);
-  if (owner === "Sarah Smith") console.log(pin);
-}
+// for (const { owner, pin } of accounts) {
+//   if (owner === "Jessica Davis") console.log(pin);
+//   if (owner === "Jonas Schmedtmann") console.log(pin);
+//   if (owner === "Steven Thomas Williams") console.log(pin);
+//   if (owner === "Sarah Smith") console.log(pin);
+// }
