@@ -504,3 +504,87 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   if (owner === "Steven Thomas Williams") console.log(pin);
 //   if (owner === "Sarah Smith") console.log(pin);
 // }
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+const arrdeeper = [[1, [2, 3]], [4, [5, 6]], 7, [8]];
+console.log(arrdeeper.flat(2));
+
+const money = accounts
+  .map((elem) => elem.movements)
+  .flat()
+  .reduce((acc, elem) => acc + elem, 0);
+
+console.log(money);
+
+const money2 = accounts
+  .flatMap((elem) => elem.movements)
+  .reduce((acc, elem) => acc + elem, 0);
+
+console.log(money2);
+
+// Remove duplicates
+const array = ["banana", "apple", "orange", "lemon", "apple", "banana"];
+
+const filtered = array.filter((elem, i, arr) => arr.indexOf(elem) === i);
+console.log(filtered);
+
+const setted = new Set(array);
+console.log(setted);
+
+const settedArray = [...setted];
+console.log(settedArray);
+
+const uniqe = [];
+const forEached = array.forEach((elem) => {
+  if (!uniqe.includes(elem)) {
+    uniqe.push(elem);
+  }
+});
+console.log(uniqe);
+
+const reduced = array.reduce((acc, elem) => {
+  if (acc.indexOf(elem) < 0) acc.push(elem);
+  return acc;
+}, []);
+console.log(reduced);
+
+const reduced2 = array.reduce(
+  (acc, elem) => (acc.includes(elem) ? acc : [...acc, elem]),
+  []
+);
+console.log(reduced2);
+
+Array.prototype.uniqe = function () {
+  return Array.from(new Set(this));
+};
+
+Array.prototype.uniqe2 = function () {
+  return [...new Set(this)];
+};
+
+console.log(array.uniqe());
+console.log(array.uniqe2());
+
+const mappedArray = new Map(array.map((elem, i, arr) => [elem, i]));
+console.log([...mappedArray.keys()]);
+
+const colors = [
+  { id: 1, name: "Red", hexCode: "#FF0000" },
+  { id: 2, name: "Green", hexCode: "#00FF00" },
+  { id: 3, name: "Blue", hexCode: "#0000FF" },
+  { id: 1, name: "White", hexCode: "#000000" },
+  { id: 1, name: "Red", hexCode: "#FF0000" },
+  { id: 3, name: "Blue", hexCode: "#0000FF" },
+];
+const mapFromColors = new Map(colors.map((elem) => [elem.name, elem]));
+
+console.log(mapFromColors);
+
+const uniqueColors = [...mapFromColors.values()];
+console.log(uniqueColors);
+/* Output:
+[ {"id":1,"name":"Red","hexCode":"#FF0000"},
+  {"id":2,"name":"Green","hexCode":"#00FF00"},
+  {"id":3,"name":"Blue","hexCode":"#0000FF"}
+] */
