@@ -78,18 +78,6 @@ const displayMovement = function (movements) {
   });
 };
 
-// const userName = function (str) {
-//   const result = str.split(" ");
-//   console.log(result);
-
-//   result.forEach((ele, i, arr) => {
-//     ele.slice(0, 1);
-//     console.log(ele);
-//   });
-// };
-
-// userName(account1.owner);
-
 const createUserName = function (accounts) {
   accounts.forEach((account) => {
     account.userName = account.owner
@@ -207,6 +195,22 @@ btnClose.addEventListener("click", function (e) {
     containerApp.style.opacity = 0;
   }
   inputCloseUsername.value = inputClosePin.value = "";
+});
+
+// Loan
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((elem) => elem >= amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = "";
+  inputLoanAmount.blur();
 });
 
 /////////////////////////////////////////////////
