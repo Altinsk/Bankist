@@ -598,3 +598,53 @@ console.log(uniqueColors);
   {"id":2,"name":"Green","hexCode":"#00FF00"},
   {"id":3,"name":"Blue","hexCode":"#0000FF"}
 ] */
+//empty array + fill method
+const x = new Array(7);
+x.fill(1, 6, 7);
+console.log(x);
+
+const y = [1, 2, 3, 4, 5];
+y.fill(1, 3, 5);
+console.log(y);
+
+// Array.from()
+console.log(Array.from({ length: 7 }, () => 3));
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+const randomeArr = Array.from(
+  { length: 100 },
+  () => Math.trunc(Math.random() * 6) + 1
+);
+console.log(randomeArr);
+
+const sett = new Set([1, 2, 3, 4, 5, 6]);
+console.log(sett);
+
+const arrFromSet = Array.from(sett);
+console.log(arrFromSet);
+
+const mapp = new Map([
+  [0, "JHJ"],
+  [true, "hello"],
+  [{ firstName: "Omar" }, [1, 2, 3]],
+]);
+
+console.log(mapp);
+
+console.log(Array.from(mapp));
+
+const myStr = "Omar rabie Mohamed";
+console.log(Array.from(myStr));
+const splitted = myStr.split(" ");
+console.log(splitted);
+console.log(splitted.join(" "));
+
+labelBalance.addEventListener("click", function (e) {
+  const movementsUI = Array.from(
+    document.querySelectorAll(".movements__value"),
+    (elem) => Number(elem.textContent.replace("€", ""))
+  );
+  console.log(movementsUI);
+});
