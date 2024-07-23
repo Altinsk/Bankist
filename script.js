@@ -648,3 +648,53 @@ labelBalance.addEventListener("click", function (e) {
   );
   console.log(movementsUI);
 });
+
+console.log(accounts.flatMap((ele) => ele.movements));
+
+const bankDepositeSum = accounts
+  .flatMap((elem) => elem.movements)
+  .filter((elem) => elem > 0)
+  .reduce((acc, el) => acc + el, 0);
+
+console.log(bankDepositeSum);
+
+const numDeposites1000 = accounts
+  .flatMap((el) => el.movements)
+  .filter((el) => el >= 1000).length;
+
+console.log(numDeposites1000);
+
+const numDeposites1000Again = accounts
+  .flatMap((ele) => ele.movements)
+  .reduce((acc, ele) => (ele >= 1000 ? ++acc : acc), 0);
+
+console.log(numDeposites1000Again);
+
+const { deposites, withdrawals } = accounts
+  .flatMap((elem) => elem.movements)
+  .reduce(
+    (acc, elem) => {
+      acc[elem > 0 ? "deposites" : "withdrawals"] += elem;
+      // elem > 0 ? (acc.deposites += elem) : (acc.withdrawals += elem);
+      return acc;
+    },
+    { deposites: 0, withdrawals: 0 }
+  );
+
+console.log(deposites, withdrawals);
+
+const converTitleCase = function (title) {
+  const capitalized = (str) => str[0].toUpperCase() + str.slice(1);
+
+  const exceptions = ["a", "the", "but", "and", "or", "on", "with"];
+  const titleCase = title
+    .toLowerCase()
+    .split(" ")
+    .map((word) => (exceptions.includes(word) ? word : capitalized(word)))
+    .join(" ");
+
+  return capitalized(titleCase);
+};
+
+console.log(converTitleCase("this is a long title but not too long"));
+console.log(converTitleCase("and here is another title of an example"));
