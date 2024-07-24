@@ -698,3 +698,69 @@ const converTitleCase = function (title) {
 
 console.log(converTitleCase("this is a long title but not too long"));
 console.log(converTitleCase("and here is another title of an example"));
+
+const dogs = [
+  { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+  { weight: 8, curFood: 200, owners: ["Matilda"] },
+  { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+  { weight: 32, curFood: 340, owners: ["Michael"] },
+];
+
+dogs.forEach((elem) => (elem.recFood = Math.trunc(elem.weight ** 0.75 * 28)));
+
+console.log(dogs);
+
+const sarahDog = dogs.find((elem) => elem.owners.includes("Sarah"));
+sarahDog.curFood > sarahDog.recFood
+  ? console.log("too much")
+  : console.log("too little");
+
+const dogCategory = dogs.reduce(
+  (acc, elem) => {
+    elem.curFood > elem.recFood
+      ? (acc.tooMuch += elem.owners)
+      : (acc.tooLittle += elem.owners);
+    return acc;
+  },
+  { tooMuch: [], tooLittle: [] }
+);
+
+console.log(dogCategory);
+
+const ownersEatTooMuch = dogs
+  .filter((elem) => elem.curFood > elem.recFood)
+  .flatMap((elem) => elem.owners);
+
+console.log(ownersEatTooMuch);
+
+const ownersEatTooLittle = dogs
+  .filter((elem) => elem.curFood < elem.recFood)
+  .flatMap((elem) => elem.owners);
+
+console.log(ownersEatTooLittle);
+
+console.log(
+  `${ownersEatTooMuch.slice(0, 2).join(", ")} and ${ownersEatTooMuch.slice(
+    -1
+  )}'s dogs eat too much!`
+);
+
+console.log(
+  `${ownersEatTooLittle.slice(0, 2).join(", ")} and ${ownersEatTooLittle.slice(
+    -1
+  )}'s dogs eat too little!`
+);
+const eatingRec = dogs.some((elem) => elem.recFood === elem.curFood);
+
+console.log(eatingRec);
+
+const checkEatingOk = (elem) =>
+  elem.curFood <= 1.1 * elem.recFood && elem.curFood >= 0.9 * elem.recFood;
+
+const exact = dogs.some(checkEatingOk);
+console.log(exact);
+
+const eatingOk = dogs.filter(checkEatingOk);
+console.log(eatingOk);
+
+console.log(dogs.slice().sort((a, b) => a.recFood - b.recFood));
