@@ -65,14 +65,14 @@ const displayMovement = function (movements, sort = false) {
   containerMovements.innerHTML = "";
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
-  movs.forEach((movement, i, array) => {
+  movs.forEach((movement, i) => {
     const type = movement > 0 ? "deposit" : "withdrawal";
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__value">${movement}</div>
+          <div class="movements__value">${movement.toFixed(2)}</div>
         </div>
 
     `;
@@ -95,26 +95,26 @@ const calcDisplayBalance = function (account) {
   account.balance = account.movements.reduce((acc, elem) => {
     return acc + elem;
   }, 0);
-  labelBalance.textContent = `${account.balance}€`;
+  labelBalance.textContent = `${account.balance.toFixed(2)}€`;
 };
 
 const calcDisplaySummay = function (account) {
   const income = account.movements
     .filter((elem) => elem > 0)
     .reduce((acc, elem) => acc + elem);
-  labelSumIn.textContent = `${income}€`;
+  labelSumIn.textContent = `${income.toFixed(2)}€`;
 
   const expenses = account.movements
     .filter((elem) => elem < 0)
     .reduce((acc, elem) => acc + elem);
-  labelSumOut.textContent = `${expenses}€`;
+  labelSumOut.textContent = `${expenses.toFixed(2)}€`;
 
   const interest = account.movements
     .filter((elem) => elem > 0)
     .map((elem) => elem * currentAccount.interestRate)
     .filter((elem) => elem >= 1)
     .reduce((acc, elem) => acc + elem);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 
 // Login
@@ -202,7 +202,7 @@ btnClose.addEventListener("click", function (e) {
 // Loan
 btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.floor(inputLoanAmount.value);
 
   if (
     amount > 0 &&
@@ -515,252 +515,316 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   if (owner === "Sarah Smith") console.log(pin);
 // }
 
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
-const arrdeeper = [[1, [2, 3]], [4, [5, 6]], 7, [8]];
-console.log(arrdeeper.flat(2));
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+// const arrdeeper = [[1, [2, 3]], [4, [5, 6]], 7, [8]];
+// console.log(arrdeeper.flat(2));
 
-const money = accounts
-  .map((elem) => elem.movements)
-  .flat()
-  .reduce((acc, elem) => acc + elem, 0);
+// const money = accounts
+//   .map((elem) => elem.movements)
+//   .flat()
+//   .reduce((acc, elem) => acc + elem, 0);
 
-console.log(money);
+// console.log(money);
 
-const money2 = accounts
-  .flatMap((elem) => elem.movements)
-  .reduce((acc, elem) => acc + elem, 0);
+// const money2 = accounts
+//   .flatMap((elem) => elem.movements)
+//   .reduce((acc, elem) => acc + elem, 0);
 
-console.log(money2);
+// console.log(money2);
 
-// Remove duplicates
-const array = ["banana", "apple", "orange", "lemon", "apple", "banana"];
+// // Remove duplicates
+// const array = ["banana", "apple", "orange", "lemon", "apple", "banana"];
 
-const filtered = array.filter((elem, i, arr) => arr.indexOf(elem) === i);
-console.log(filtered);
+// const filtered = array.filter((elem, i, arr) => arr.indexOf(elem) === i);
+// console.log(filtered);
 
-const setted = new Set(array);
-console.log(setted);
+// const setted = new Set(array);
+// console.log(setted);
 
-const settedArray = [...setted];
-console.log(settedArray);
+// const settedArray = [...setted];
+// console.log(settedArray);
 
-const uniqe = [];
-const forEached = array.forEach((elem) => {
-  if (!uniqe.includes(elem)) {
-    uniqe.push(elem);
-  }
-});
-console.log(uniqe);
+// const uniqe = [];
+// const forEached = array.forEach((elem) => {
+//   if (!uniqe.includes(elem)) {
+//     uniqe.push(elem);
+//   }
+// });
+// console.log(uniqe);
 
-const reduced = array.reduce((acc, elem) => {
-  if (acc.indexOf(elem) < 0) acc.push(elem);
-  return acc;
-}, []);
-console.log(reduced);
+// const reduced = array.reduce((acc, elem) => {
+//   if (acc.indexOf(elem) < 0) acc.push(elem);
+//   return acc;
+// }, []);
+// console.log(reduced);
 
-const reduced2 = array.reduce(
-  (acc, elem) => (acc.includes(elem) ? acc : [...acc, elem]),
-  []
-);
-console.log(reduced2);
+// const reduced2 = array.reduce(
+//   (acc, elem) => (acc.includes(elem) ? acc : [...acc, elem]),
+//   []
+// );
+// console.log(reduced2);
 
-Array.prototype.uniqe = function () {
-  return Array.from(new Set(this));
-};
+// Array.prototype.uniqe = function () {
+//   return Array.from(new Set(this));
+// };
 
-Array.prototype.uniqe2 = function () {
-  return [...new Set(this)];
-};
+// Array.prototype.uniqe2 = function () {
+//   return [...new Set(this)];
+// };
 
-console.log(array.uniqe());
-console.log(array.uniqe2());
+// console.log(array.uniqe());
+// console.log(array.uniqe2());
 
-const mappedArray = new Map(array.map((elem, i, arr) => [elem, i]));
-console.log([...mappedArray.keys()]);
+// const mappedArray = new Map(array.map((elem, i, arr) => [elem, i]));
+// console.log([...mappedArray.keys()]);
 
-const colors = [
-  { id: 1, name: "Red", hexCode: "#FF0000" },
-  { id: 2, name: "Green", hexCode: "#00FF00" },
-  { id: 3, name: "Blue", hexCode: "#0000FF" },
-  { id: 1, name: "White", hexCode: "#000000" },
-  { id: 1, name: "Red", hexCode: "#FF0000" },
-  { id: 3, name: "Blue", hexCode: "#0000FF" },
-];
-const mapFromColors = new Map(colors.map((elem) => [elem.name, elem]));
+// const colors = [
+//   { id: 1, name: "Red", hexCode: "#FF0000" },
+//   { id: 2, name: "Green", hexCode: "#00FF00" },
+//   { id: 3, name: "Blue", hexCode: "#0000FF" },
+//   { id: 1, name: "White", hexCode: "#000000" },
+//   { id: 1, name: "Red", hexCode: "#FF0000" },
+//   { id: 3, name: "Blue", hexCode: "#0000FF" },
+// ];
+// const mapFromColors = new Map(colors.map((elem) => [elem.name, elem]));
 
-console.log(mapFromColors);
+// console.log(mapFromColors);
 
-const uniqueColors = [...mapFromColors.values()];
-console.log(uniqueColors);
+// const uniqueColors = [...mapFromColors.values()];
+// console.log(uniqueColors);
 /* Output:
 [ {"id":1,"name":"Red","hexCode":"#FF0000"},
   {"id":2,"name":"Green","hexCode":"#00FF00"},
   {"id":3,"name":"Blue","hexCode":"#0000FF"}
 ] */
 //empty array + fill method
-const x = new Array(7);
-x.fill(1, 6, 7);
-console.log(x);
+// const x = new Array(7);
+// x.fill(1, 6, 7);
+// console.log(x);
 
-const y = [1, 2, 3, 4, 5];
-y.fill(1, 3, 5);
-console.log(y);
+// const y = [1, 2, 3, 4, 5];
+// y.fill(1, 3, 5);
+// console.log(y);
 
-// Array.from()
-console.log(Array.from({ length: 7 }, () => 3));
+// // Array.from()
+// console.log(Array.from({ length: 7 }, () => 3));
 
-const z = Array.from({ length: 7 }, (_, i) => i + 1);
-console.log(z);
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
 
-const randomeArr = Array.from(
-  { length: 100 },
-  () => Math.trunc(Math.random() * 6) + 1
-);
-console.log(randomeArr);
+// const randomeArr = Array.from(
+//   { length: 100 },
+//   () => Math.trunc(Math.random() * 6) + 1
+// );
+// console.log(randomeArr);
 
-const sett = new Set([1, 2, 3, 4, 5, 6]);
-console.log(sett);
+// const sett = new Set([1, 2, 3, 4, 5, 6]);
+// console.log(sett);
 
-const arrFromSet = Array.from(sett);
-console.log(arrFromSet);
+// const arrFromSet = Array.from(sett);
+// console.log(arrFromSet);
 
-const mapp = new Map([
-  [0, "JHJ"],
-  [true, "hello"],
-  [{ firstName: "Omar" }, [1, 2, 3]],
-]);
+// const mapp = new Map([
+//   [0, "JHJ"],
+//   [true, "hello"],
+//   [{ firstName: "Omar" }, [1, 2, 3]],
+// ]);
 
-console.log(mapp);
+// console.log(mapp);
 
-console.log(Array.from(mapp));
+// console.log(Array.from(mapp));
 
-const myStr = "Omar rabie Mohamed";
-console.log(Array.from(myStr));
-const splitted = myStr.split(" ");
-console.log(splitted);
-console.log(splitted.join(" "));
+// const myStr = "Omar rabie Mohamed";
+// console.log(Array.from(myStr));
+// const splitted = myStr.split(" ");
+// console.log(splitted);
+// console.log(splitted.join(" "));
 
-labelBalance.addEventListener("click", function (e) {
-  const movementsUI = Array.from(
-    document.querySelectorAll(".movements__value"),
-    (elem) => Number(elem.textContent.replace("€", ""))
-  );
-  console.log(movementsUI);
+// labelBalance.addEventListener("click", function (e) {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll(".movements__value"),
+//     (elem) => Number(elem.textContent.replace("€", ""))
+//   );
+//   console.log(movementsUI);
+// });
+
+// console.log(accounts.flatMap((ele) => ele.movements));
+
+// const bankDepositeSum = accounts
+//   .flatMap((elem) => elem.movements)
+//   .filter((elem) => elem > 0)
+//   .reduce((acc, el) => acc + el, 0);
+
+// console.log(bankDepositeSum);
+
+// const numDeposites1000 = accounts
+//   .flatMap((el) => el.movements)
+//   .filter((el) => el >= 1000).length;
+
+// console.log(numDeposites1000);
+
+// const numDeposites1000Again = accounts
+//   .flatMap((ele) => ele.movements)
+//   .reduce((acc, ele) => (ele >= 1000 ? ++acc : acc), 0);
+
+// console.log(numDeposites1000Again);
+
+// const { deposites, withdrawals } = accounts
+//   .flatMap((elem) => elem.movements)
+//   .reduce(
+//     (acc, elem) => {
+//       acc[elem > 0 ? "deposites" : "withdrawals"] += elem;
+//       // elem > 0 ? (acc.deposites += elem) : (acc.withdrawals += elem);
+//       return acc;
+//     },
+//     { deposites: 0, withdrawals: 0 }
+//   );
+
+// console.log(deposites, withdrawals);
+
+// const converTitleCase = function (title) {
+//   const capitalized = (str) => str[0].toUpperCase() + str.slice(1);
+
+//   const exceptions = ["a", "the", "but", "and", "or", "on", "with"];
+//   const titleCase = title
+//     .toLowerCase()
+//     .split(" ")
+//     .map((word) => (exceptions.includes(word) ? word : capitalized(word)))
+//     .join(" ");
+
+//   return capitalized(titleCase);
+// };
+
+// console.log(converTitleCase("this is a long title but not too long"));
+// console.log(converTitleCase("and here is another title of an example"));
+
+// const dogs = [
+//   { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
+//   { weight: 8, curFood: 200, owners: ["Matilda"] },
+//   { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
+//   { weight: 32, curFood: 340, owners: ["Michael"] },
+// ];
+
+// dogs.forEach((elem) => (elem.recFood = Math.trunc(elem.weight ** 0.75 * 28)));
+
+// console.log(dogs);
+
+// const sarahDog = dogs.find((elem) => elem.owners.includes("Sarah"));
+// sarahDog.curFood > sarahDog.recFood
+//   ? console.log("too much")
+//   : console.log("too little");
+
+// const dogCategory = dogs.reduce(
+//   (acc, elem) => {
+//     elem.curFood > elem.recFood
+//       ? (acc.tooMuch += elem.owners)
+//       : (acc.tooLittle += elem.owners);
+//     return acc;
+//   },
+//   { tooMuch: [], tooLittle: [] }
+// );
+
+// console.log(dogCategory);
+
+// const ownersEatTooMuch = dogs
+//   .filter((elem) => elem.curFood > elem.recFood)
+//   .flatMap((elem) => elem.owners);
+
+// console.log(ownersEatTooMuch);
+
+// const ownersEatTooLittle = dogs
+//   .filter((elem) => elem.curFood < elem.recFood)
+//   .flatMap((elem) => elem.owners);
+
+// console.log(ownersEatTooLittle);
+
+// console.log(
+//   `${ownersEatTooMuch.slice(0, 2).join(", ")} and ${ownersEatTooMuch.slice(
+//     -1
+//   )}'s dogs eat too much!`
+// );
+
+// console.log(
+//   `${ownersEatTooLittle.slice(0, 2).join(", ")} and ${ownersEatTooLittle.slice(
+//     -1
+//   )}'s dogs eat too little!`
+// );
+// const eatingRec = dogs.some((elem) => elem.recFood === elem.curFood);
+
+// console.log(eatingRec);
+
+// const checkEatingOk = (elem) =>
+//   elem.curFood <= 1.1 * elem.recFood && elem.curFood >= 0.9 * elem.recFood;
+
+// const exact = dogs.some(checkEatingOk);
+// console.log(exact);
+
+// const eatingOk = dogs.filter(checkEatingOk);
+// console.log(eatingOk);
+
+// console.log(dogs.slice().sort((a, b) => a.recFood - b.recFood));
+
+// console.log(Math.sqrt(4));
+// console.log(8 ** (1 / 3));
+// console.log(Math.max(12, 2, 34, 24, "78"));
+// console.log(Math.min(12, 78, "8"));
+// console.log(Math.PI ** Number.parseFloat("12.8px"));
+// console.log(Math.trunc(Math.random() * 10) + 1);
+
+// console.log("-------------------------------------");
+
+// const randomInt = (min, max) =>
+//   Math.trunc(Math.random() * (max - min) + 1) + min;
+// console.log(randomInt(5, 7));
+
+// const randomInt2 = (min, max) =>
+//   Math.trunc(Math.random() * (max - min + 1)) + min;
+// console.log(randomInt2(5, 7));
+
+// //Rounding
+// console.log(Math.trunc(23.44));
+
+// console.log(Math.round(24.34));
+// console.log(Math.round(24.64));
+
+// console.log(Math.ceil(25.1));
+// console.log(Math.ceil(25.9));
+
+// console.log(Math.floor(26.2));
+// console.log(Math.floor(26.9));
+
+// console.log(Math.trunc(-26.9));
+// console.log(Math.floor(-26.9));
+
+// console.log((3.7).toFixed(0));
+// console.log(+(3.776876).toFixed(3));
+// console.log(+(3).toFixed(3));
+
+// const gigi = 444;
+// const num = "3333";
+// const hehe = "2344";
+// console.log(gigi.toString());
+// console.log(parseInt(5556));
+
+console.log(5 % 2);
+
+console.log(9 % 4);
+console.log(7 % 2);
+
+const evenOdd = (num) =>
+  num % 2 === 0 ? console.log("even") : console.log("odd");
+
+evenOdd(55);
+evenOdd(50);
+
+document.addEventListener("click", function (e) {
+  e.preventDefault();
+  [...document.querySelectorAll(".movements__row")].forEach((elem, i) => {
+    if (i % 3 === 0) {
+      return (elem.style.backgroundColor = "red");
+    } else {
+      return (elem.style.backgroundColor = "blue");
+    }
+  });
 });
-
-console.log(accounts.flatMap((ele) => ele.movements));
-
-const bankDepositeSum = accounts
-  .flatMap((elem) => elem.movements)
-  .filter((elem) => elem > 0)
-  .reduce((acc, el) => acc + el, 0);
-
-console.log(bankDepositeSum);
-
-const numDeposites1000 = accounts
-  .flatMap((el) => el.movements)
-  .filter((el) => el >= 1000).length;
-
-console.log(numDeposites1000);
-
-const numDeposites1000Again = accounts
-  .flatMap((ele) => ele.movements)
-  .reduce((acc, ele) => (ele >= 1000 ? ++acc : acc), 0);
-
-console.log(numDeposites1000Again);
-
-const { deposites, withdrawals } = accounts
-  .flatMap((elem) => elem.movements)
-  .reduce(
-    (acc, elem) => {
-      acc[elem > 0 ? "deposites" : "withdrawals"] += elem;
-      // elem > 0 ? (acc.deposites += elem) : (acc.withdrawals += elem);
-      return acc;
-    },
-    { deposites: 0, withdrawals: 0 }
-  );
-
-console.log(deposites, withdrawals);
-
-const converTitleCase = function (title) {
-  const capitalized = (str) => str[0].toUpperCase() + str.slice(1);
-
-  const exceptions = ["a", "the", "but", "and", "or", "on", "with"];
-  const titleCase = title
-    .toLowerCase()
-    .split(" ")
-    .map((word) => (exceptions.includes(word) ? word : capitalized(word)))
-    .join(" ");
-
-  return capitalized(titleCase);
-};
-
-console.log(converTitleCase("this is a long title but not too long"));
-console.log(converTitleCase("and here is another title of an example"));
-
-const dogs = [
-  { weight: 22, curFood: 250, owners: ["Alice", "Bob"] },
-  { weight: 8, curFood: 200, owners: ["Matilda"] },
-  { weight: 13, curFood: 275, owners: ["Sarah", "John"] },
-  { weight: 32, curFood: 340, owners: ["Michael"] },
-];
-
-dogs.forEach((elem) => (elem.recFood = Math.trunc(elem.weight ** 0.75 * 28)));
-
-console.log(dogs);
-
-const sarahDog = dogs.find((elem) => elem.owners.includes("Sarah"));
-sarahDog.curFood > sarahDog.recFood
-  ? console.log("too much")
-  : console.log("too little");
-
-const dogCategory = dogs.reduce(
-  (acc, elem) => {
-    elem.curFood > elem.recFood
-      ? (acc.tooMuch += elem.owners)
-      : (acc.tooLittle += elem.owners);
-    return acc;
-  },
-  { tooMuch: [], tooLittle: [] }
-);
-
-console.log(dogCategory);
-
-const ownersEatTooMuch = dogs
-  .filter((elem) => elem.curFood > elem.recFood)
-  .flatMap((elem) => elem.owners);
-
-console.log(ownersEatTooMuch);
-
-const ownersEatTooLittle = dogs
-  .filter((elem) => elem.curFood < elem.recFood)
-  .flatMap((elem) => elem.owners);
-
-console.log(ownersEatTooLittle);
-
-console.log(
-  `${ownersEatTooMuch.slice(0, 2).join(", ")} and ${ownersEatTooMuch.slice(
-    -1
-  )}'s dogs eat too much!`
-);
-
-console.log(
-  `${ownersEatTooLittle.slice(0, 2).join(", ")} and ${ownersEatTooLittle.slice(
-    -1
-  )}'s dogs eat too little!`
-);
-const eatingRec = dogs.some((elem) => elem.recFood === elem.curFood);
-
-console.log(eatingRec);
-
-const checkEatingOk = (elem) =>
-  elem.curFood <= 1.1 * elem.recFood && elem.curFood >= 0.9 * elem.recFood;
-
-const exact = dogs.some(checkEatingOk);
-console.log(exact);
-
-const eatingOk = dogs.filter(checkEatingOk);
-console.log(eatingOk);
-
-console.log(dogs.slice().sort((a, b) => a.recFood - b.recFood));
