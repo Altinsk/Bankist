@@ -828,3 +828,78 @@ document.addEventListener("click", function (e) {
     }
   });
 });
+
+const diametter = 233_460_000_000;
+console.log(diametter);
+console.log(123344);
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 0);
+console.log(2 ** 53 + 1);
+console.log(2 ** 53 + 2);
+console.log(2 ** 53 + 3);
+console.log(2 ** 53 + 4);
+
+//BigInt
+console.log(93727234794547355646565345353453534534n);
+//Normally maximum safe number is => Number.MAX_SAFE_INTEGER
+// Integers have 64 bits , 53 are used to store
+// the number while the rest is for the position
+// JS is limited in the Integer storage
+// Max. number is 2 ** 53 - 1 (-1 is because we
+//start counting from 0) => this is the maximum that can be
+//stored in an Integer === MAX_SAFE_INTEGER
+//We add n at the end of the number which is more the
+// the maximum safe number
+// To add a bigInt add n at the end of the Integer
+// console.log(534323546545756765756747545747457745473n)
+
+console.log(3343546568568345345346547575756767454566456546646n);
+console.log(BigInt(3343546568568345345346547575756767454566456546646));
+// BigInt construction function will convert an Integer to
+// Big int. but will not necesserly be the same result as Int followed
+//by n so BigInt construction function is made to transform a small
+//Integer into a big sized BigInt
+console.log(BigInt(7868765465));
+
+// It's not allowed to mix BigInts with normal numbers
+const huge = 324456457574574564363436345353453453453534n;
+const nummr = 23;
+// console.log(huge * nummr); // error
+// this is when the BigInt() comes to convert the number into BigInt to
+// allow the operation without errors :
+console.log(huge * BigInt(nummr));
+
+// Logical ooperator exception
+console.log(20n > 15); // normal
+console.log(20n === 20); // Not the same type
+console.log(typeof 20n); // type bigInt NOT number
+console.log(typeof 20); // type number
+console.log(20n == 20); // not type comparison so will work
+console.log(20n == "20"); // js is doing data coersion so string to Number, so the comparison is true at the end as no type comparison
+
+// console.log(Math.sqrt(20n)); // Math.sqrt() Math operations not working with bigInt
+
+// string concat
+console.log(huge + "this is a bigIn");
+
+// BigInt with divisions
+console.log(10 / 3);
+console.log(10n / 3n); // Takes the closes bigInt
+// console.log(10n / 3); // Canot mix BigInt with Int
+// console.log(10 / 3n); // Canot mix BigInt with Int
+
+// Dates and time
+
+// Create a Date can be done by 4 different methods and all use
+// new Date() but the parameters are different
+
+// 1. // use new Date()
+const now = new Date();
+console.log(now);
+
+// 2. use new Date('string') => js will parse the time
+console.log(new Date("Sat Jul 26, 2024 "));
+
+console.log(new Date(account1.movementsDates[0]));
